@@ -6,19 +6,19 @@
 *  netstat -an | awk '/ ^ tcp / {++ S [$ NF]} END {for (a in S) print a, S [a]}'
 
 	2、You can use man netstat to view various descriptions of TCP status information:
-	 a]LISTEN - Listen for connection requests from remote TCP ports； 
-	 b]SYN-SENT - Waiting for a matching connection request after sending a connection request； 
-	SYN-RECEIVED - Waiting for confirmation of a connection request after receiving and sending a connection request； 
-	ESTABLISHED- Represents an open connection, data can be transmitted to the user； 
-	FIN-WAIT-1 - Waiting for a remote TCP connection interrupt request or confirmation of a 
+	2.1. LISTEN - Listen for connection requests from remote TCP ports； 
+	2.2. SYN-SENT - Waiting for a matching connection request after sending a connection request； 
+	2.3. SYN-RECEIVED - Waiting for confirmation of a connection request after receiving and sending a connection request； 
+	2.4. ESTABLISHED- Represents an open connection, data can be transmitted to the user； 
+	2.5. FIN-WAIT-1 - Waiting for a remote TCP connection interrupt request or confirmation of a 
 	             previous connection interrupt request；
-	FIN-WAIT-2 - Waiting for connection interruption request from remote TCP； 
-	CLOSE-WAIT - Waiting for a connection interruption request from a local user； 
-	CLOSING -    Waiting for remote TCP to acknowledge connection interruption； 
-	LAST-ACK -   Waiting for confirmation of the original connection interruption request to the remote TCP； 
-	TIME-WAIT -  Wait enough time to ensure that the remote TCP 
+	2.6. FIN-WAIT-2 - Waiting for connection interruption request from remote TCP； 
+	2.7. CLOSE-WAIT - Waiting for a connection interruption request from a local user； 
+	2.8. CLOSING -    Waiting for remote TCP to acknowledge connection interruption； 
+	2.9. LAST-ACK -   Waiting for confirmation of the original connection interruption request to the remote TCP； 
+	2.10.TIME-WAIT -  Wait enough time to ensure that the remote TCP 
 	             receives an acknowledgement of the connection interruption request； 
-	CLOSED - No connection status；
+	2.11. CLOSED - No connection status；
 
 ##Instructions
     1、Place the status_TCP.conf file in the /etc/zabbix/zabbix_agentd.d directory.
