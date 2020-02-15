@@ -6,8 +6,8 @@
 *  netstat -an | awk '/ ^ tcp / {++ S [$ NF]} END {for (a in S) print a, S [a]}'
 
 	2、You can use man netstat to view various descriptions of TCP status information:
-	LISTEN - Listen for connection requests from remote TCP ports； 
-	SYN-SENT - Waiting for a matching connection request after sending a connection request； 
+	 a]LISTEN - Listen for connection requests from remote TCP ports； 
+	 b]SYN-SENT - Waiting for a matching connection request after sending a connection request； 
 	SYN-RECEIVED - Waiting for confirmation of a connection request after receiving and sending a connection request； 
 	ESTABLISHED- Represents an open connection, data can be transmitted to the user； 
 	FIN-WAIT-1 - Waiting for a remote TCP connection interrupt request or confirmation of a 
