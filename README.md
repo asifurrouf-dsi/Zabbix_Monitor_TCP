@@ -1,41 +1,43 @@
-#*ZABBIX 3.0 监控服务器TCP连接状态*
+#ZABBIX 3.0 Monitor server TCP connection status
 
 
-##监控原理
-	1、TCP连接可以使用命令获取：
-	*# netstat -an|awk '/^tcp/{++S[$NF]}END{for(a in S) print a,S[a]}'
+##Monitoring principle
+	1、TCP connection can be obtained using commands:
+* # netstat -an | awk '/ ^ tcp / {++ S [$ NF]} END {for (a in S) print a, S [a]}'
 
-	2、可以使用man netstat查看TCP的各种状态信息描述：
-	LISTEN - 侦听来自远方TCP端口的连接请求； 
-	SYN-SENT -在发送连接请求后等待匹配的连接请求； 
-	SYN-RECEIVED - 在收到和发送一个连接请求后等待对连接请求的确认； 
-	ESTABLISHED- 代表一个打开的连接，数据可以传送给用户； 
-	FIN-WAIT-1 - 等待远程TCP的连接中断请求，或先前的连接中断请求的确认；
-	FIN-WAIT-2 - 从远程TCP等待连接中断请求； 
-	CLOSE-WAIT - 等待从本地用户发来的连接中断请求； 
-	CLOSING -等待远程TCP对连接中断的确认； 
-	LAST-ACK - 等待原来发向远程TCP的连接中断请求的确认； 
-	TIME-WAIT -等待足够的时间以确保远程TCP接收到连接中断请求的确认； 
-	CLOSED - 没有任何连接状态；
+	2、You can use man netstat to view various descriptions of TCP status information:
+	LISTEN - Listen for connection requests from remote TCP ports； 
+	SYN-SENT - Waiting for a matching connection request after sending a connection request； 
+	SYN-RECEIVED - Waiting for confirmation of a connection request after receiving and sending a connection request； 
+	ESTABLISHED- Represents an open connection, data can be transmitted to the user； 
+	FIN-WAIT-1 - Waiting for a remote TCP connection interrupt request or confirmation of a 
+	             previous connection interrupt request；
+	FIN-WAIT-2 - Waiting for connection interruption request from remote TCP； 
+	CLOSE-WAIT - Waiting for a connection interruption request from a local user； 
+	CLOSING -    Waiting for remote TCP to acknowledge connection interruption； 
+	LAST-ACK -   Waiting for confirmation of the original connection interruption request to the remote TCP； 
+	TIME-WAIT -  Wait enough time to ensure that the remote TCP 
+	             receives an acknowledgement of the connection interruption request； 
+	CLOSED - No connection status；
 
-##使用方法
-    1、将status_TCP.conf文件放置到/etc/zabbix/zabbix_agentd.d目录。
+##Instructions
+    1、Place the status_TCP.conf file in the /etc/zabbix/zabbix_agentd.d directory.
 
-   	2、将脚本tcp_status.sh放置到目录/etc/zabbix/scripts下，如果目录不存在，则创建目录；赋予脚本执行权限及添加执行权限和tcp_status的属主和属组。
+    2、Place the script tcp_status.sh under the directory / etc / zabbix / scripts. If the directory does not exist, create the directory; grant the script execution permissions and add the execution permissions and the owner and group of tcp_status.
 		*# mkdir /etc/zabbix/scripts
 		*# chmod +x /etc/zabbix/scripts/tcp_status.sh
 		*# chown zabbix:zabbix /etc/zabbix/scripts/tcp_status.sh
 
-    3、因为脚本是把tcp的一些信息存放在/tmp/下，为了zabbix可以读取到我们设置zabbix可以读的权限：
+    3、Because the script stores some tcp information under / tmp /, in order for zabbix to read, we set the permissions that zabbix can read:
 		*# touch /tmp/tcp_status.txt
 		*# chown zabbix:zabbix /tmp/tcp_status.txt
 
-	4、重启zabbix agent 
+    4、Restart zabbix agent
 		*# service zabbix-agent restart
 
-    5、在zabbix server中导入模板(zabbix版本>=3.0,版本低于3.0可能无法导入):Template_TCP_Status_templates.xml
+    5、Import templates in zabbix server (zabbix version> = 3.0, versions below 3.0 may not be imported): Template_TCP_Status_templates.xml
 
-	6、检验KEY：
+    6、Check KEY:
 		*# zabbix_get -s 127.0.0.1  -k tcp.status[established]
 			270
 		*# zabbix_get -s 127.0.0.1  -k tcp.status[lastack]
@@ -43,7 +45,7 @@
 		*# zabbix_get -s 127.0.0.1  -k tcp.status[listen]
 			11
 
-		可查看server端日志：
+    7, You can view server-side logs:：
 		*# tailf /var/log/zabbix/zabbix_server.log
 
 		 	21178:20171124:174831.855 item "Zabbix server:tcp.status[closed]" became supported
