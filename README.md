@@ -1,7 +1,7 @@
 #ZABBIX 3.0 Monitor server TCP connection status
 
 
-##Monitoring principle
+####### Monitoring principle
 	1、TCP connection can be obtained using commands:
 * # netstat -an | awk '/ ^ tcp / {++ S [$ NF]} END {for (a in S) print a, S [a]}'
 
